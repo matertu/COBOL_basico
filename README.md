@@ -1,7 +1,7 @@
-##Exercicios básicos em COBOL
+## Exercicios básicos em COBOL
 Pequena monta de exercícios para praticar a estrutura básica de um programa em cobol, trabalhar com arquivos de entrada / saída e realizar operações comdados utilizando suas principais funções e condições.
 
-##Uso
+## Uso
 Cada diretório possui o arquivo de código, ex: "EX01.cbl", a massa de dados "xxx.dat" e o arquivo ".exe".
 
 ## Ambiente e Compilação
