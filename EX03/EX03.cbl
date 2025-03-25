@@ -1,0 +1,61 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. EX03.
+      *ESTE PROGRAMA FOI DESENVOLVIDO EM LINUX E COMPILADO USANDO GNUCBL
+       AUTHOR. Matheus Souza Tertuliano.
+       DATE-WRITTEN. 18/03/2025.
+       DATE-COMPILED.
+       SECURITY. APENAS O AUTOR PODE MODIFICA-LO.
+
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SOURCE-COMPUTER. MY-PC.
+       OBJECT-COMPUTER. MY-PC.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT CADALU ASSIGN TO "CADALU.DAT"
+               ORGANIZATION IS LINE SEQUENTIAL.
+           SELECT CADATU ASSIGN TO "CADATU.DAT"
+               ORGANIZATION IS LINE SEQUENTIAL.
+
+       DATA DIVISION.
+       FILE SECTION.
+       FD CADALU.
+       01 DADOS-INT.
+           05 NUMERO-INP    PIC 9(5).
+           05 NOME-INP      PIC X(20).
+           05 NOTA1-INP     PIC 9(2)V99.
+           05 NOTA2-INP     PIC 9(2)V99.
+           05 NOTA3-INP     PIC 9(2)V99.
+
+       FD CADATU.
+       01 DADOS-OUT.
+           05 NUMERO-OUT   PIC 9(5).
+           05 DASH         PIC X(1) VALUE "-".
+           05 MEDIA-OUT    PIC 9(2)V99.
+
+       WORKING-STORAGE SECTION.
+       01 FIMARQ PIC X(1) VALUE "N".
+       01 MEDIA  PIC 9(2)V99.
+
+       PROCEDURE DIVISION.
+       INICIO.
+           OPEN INPUT CADALU
+           OPEN OUTPUT CADATU
+
+           PERFORM UNTIL FIMARQ = "S"
+               READ CADALU AT END
+                   MOVE "S" TO FIMARQ
+               NOT AT END
+                   MOVE NUMERO-INP TO NUMERO-OUT
+                   COMPUTE MEDIA=(NOTA1-INP + NOTA2-INP + NOTA3-INP)/3
+                   MOVE MEDIA TO MEDIA-OUT
+                   MOVE DASH TO DASH
+                   WRITE DADOS-OUT
+               END-READ
+           END-PERFORM
+
+           CLOSE CADALU
+           CLOSE CADATU
+           STOP RUN.

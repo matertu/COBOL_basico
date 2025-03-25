@@ -1,0 +1,59 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. EX02.
+      *ESTE PROGRAMA FOI DESENVOLVIDO EM LINUX E COMPILADO USANDO GNUCBL
+       AUTHOR. Matheus Souza Tertuliano.
+       DATE-WRITTEN. 17/03/2025.
+       DATE-COMPILED.
+       SECURITY. APENAS O AUTOR PODE MODIFICA-LO.
+
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SOURCE-COMPUTER. MY-PC.
+       OBJECT-COMPUTER. MY-PC.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT CADALU ASSIGN TO "CADALU.DAT"
+               ORGANIZATION IS LINE SEQUENTIAL.
+           SELECT CADATU ASSIGN TO "CADATU.DAT"
+               ORGANIZATION IS LINE SEQUENTIAL.
+
+       DATA DIVISION.
+       FILE SECTION.
+       FD CADALU.
+       01 DADOS-INT.
+           05 NUMERO-INP   PIC 9(5).
+           05 NOME-INP      PIC X(20).
+           05 SEXO          PIC X(1).
+           05 DATA-NASC-INP     PIC 9(8).
+
+       FD CADATU.
+       01 DADOS-OUT.
+           05 NUMERO-OUT   PIC 9(5).
+           05 NOME-OUT     PIC X(20).
+           05 DATA-NASC-OUT     PIC 9(8).
+
+       WORKING-STORAGE SECTION.
+       01 FIMARQ PIC X(1) VALUE "N".
+
+       PROCEDURE DIVISION.
+       INICIO.
+           OPEN INPUT CADALU
+           OPEN OUTPUT CADATU
+
+           PERFORM UNTIL FIMARQ = "S"
+               READ CADALU AT END
+                   MOVE "S" TO FIMARQ
+               NOT AT END
+                   DISPLAY "ARQUIVO CADALU LIDO"
+                   MOVE NUMERO-INP TO NUMERO-OUT
+                   MOVE NOME-INP TO NOME-OUT
+                   MOVE DATA-NASC-INP TO DATA-NASC-OUT
+                   WRITE DADOS-OUT
+               END-READ
+           END-PERFORM
+
+           CLOSE CADALU
+           CLOSE CADATU
+           STOP RUN.
